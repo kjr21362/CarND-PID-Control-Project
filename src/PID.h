@@ -1,5 +1,6 @@
 #ifndef PID_H
 #define PID_H
+#include <vector>
 
 class PID {
  public:
@@ -30,7 +31,9 @@ class PID {
    * @output The total PID error
    */
   double TotalError();
-
+  
+  void SetTwiddle(bool b_twiddle);
+  
  private:
   /**
    * PID Errors
@@ -48,6 +51,14 @@ class PID {
   
   double prev_cte;
   double int_cte;
+  bool first;
+  bool twiddle;
+  int twiddle_steps;
+  int max_twiddle_steps;
+  double tol;
+  double best_error;
+  std::vector<double> p;
+  std::vector<double> dp;
 };
 
 #endif  // PID_H
